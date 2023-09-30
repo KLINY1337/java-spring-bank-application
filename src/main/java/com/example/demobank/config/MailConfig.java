@@ -18,12 +18,12 @@ public class MailConfig {
         properties.put("mail.smtps.auth", "true");
         //properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.debug", "true");
-        properties.put("mail.from", "mail.sender.123@mail.ru");
+        properties.put("mail.from", "a12344321123@mail.ru");
 
         emailConfig.setHost("smtp.mail.ru");
         emailConfig.setPort(465);
-        emailConfig.setUsername("mail.sender.123@mail.ru");
-        emailConfig.setPassword("TYaYyeX%ru32");
+        emailConfig.setUsername("a12344321123@mail.ru");
+        emailConfig.setPassword("jWenBvbXbYBeuxsYvJSt");
         emailConfig.setProtocol("smtps");
 
         return emailConfig;

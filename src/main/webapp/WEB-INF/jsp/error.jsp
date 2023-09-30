@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,9 +70,11 @@
     </h3>
     <div class="card-body">
         <p class="card-text">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus
-            doloremque quod consequatur debitis ut non! Sunt quae cupiditate
-            accusantium necessitatibus!
+            <c:if test="${requestScope.PageTitle != null}">
+        <div class="alert alert-danger text-center border border-danger">
+            <b>${requestScope.PageTitle}</b>
+        </div>
+        </c:if>
         </p>
         <hr />
         <a href="login" class="btn btn-sm btn-danger"

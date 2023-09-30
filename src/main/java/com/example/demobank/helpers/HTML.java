@@ -99,6 +99,6 @@ public class HTML {
                 "    </div>\n" +
                 "  </body>\n" +
                 "</html> \n";
-        return "";
+        return emailTemplate;
     }
 }
