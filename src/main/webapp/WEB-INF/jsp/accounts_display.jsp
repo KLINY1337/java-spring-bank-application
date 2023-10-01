@@ -33,78 +33,44 @@
 </div>
 <!--Accordion-->
 <div class="container">
-    <div class="accordion" id="accordionPanelsStayOpenExample">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                <button
-                        class="accordion-button collapsed"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#panelsStayOpen-collapseOne"
-                        aria-expanded="false"
-                        aria-controls="panelsStayOpen-collapseOne"
-                >
-                    Accordion Item #1
-                </button>
-            </h2>
-            <div
-                    id="panelsStayOpen-collapseOne"
-                    class="accordion-collapse collapse"
-                    aria-labelledby="panelsStayOpen-headingOne"
-            >
-                <div class="accordion-body">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Vestibulum tempus.
+    <c:if test="${requestScope.userAccounts != null}">
+        <c:forEach items="${requestScope.userAccounts}" var="account">
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-heading${account.account_number}">
+                        <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapse${account.account_number}"
+                                aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapse${account.account_number}"
+                        >
+                            ${account.account_name}
+                        </button>
+                    </h2>
+                    <div
+                            id="panelsStayOpen-collapse${account.account_number}"
+                            class="accordion-collapse collapse"
+                            aria-labelledby="panelsStayOpen-heading${account.account_number}"
+                    >
+                        <div class="accordion-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex ">Name <span class="ms-auto"> <b>${account.account_name}</b></span></li>
+                                <li class="list-group-item d-flex">Number <span class="ms-auto"> <b>${account.account_number}</b></span></li>
+                                <li class="list-group-item d-flex">Type <span class="ms-auto"> <b>${account.account_type}</b></span></li>
+                                <li class="list-group-item d-flex">Balance <span class="ms-auto"> <b>${account.balance}</b></span></li>
+                                <li class="list-group-item d-flex">Created at <span class="ms-auto"> <b>${account.created_at}</b></span></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                <button
-                        class="accordion-button collapsed"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#panelsStayOpen-collapseTwo"
-                        aria-expanded="false"
-                        aria-controls="panelsStayOpen-collapseTwo"
-                >
-                    Accordion Item #2
-                </button>
-            </h2>
-            <div
-                    id="panelsStayOpen-collapseTwo"
-                    class="accordion-collapse collapse"
-                    aria-labelledby="panelsStayOpen-headingTwo"
-            >
-                <div class="accordion-body">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Vestibulum tempus.
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                <button
-                        class="accordion-button collapsed"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#panelsStayOpen-collapseThree"
-                        aria-expanded="false"
-                        aria-controls="panelsStayOpen-collapseThree"
-                >
-                    Accordion Item #3
-                </button>
-            </h2>
-            <div
-                    id="panelsStayOpen-collapseThree"
-                    class="accordion-collapse collapse"
-                    aria-labelledby="panelsStayOpen-headingThree"
-            >
-                <div class="accordion-body">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Vestibulum tempus.
-                </div>
-            </div>
-        </div>
-    </div>
+        </c:forEach>
+    </c:if>
 </div>
+
+
+
+
+

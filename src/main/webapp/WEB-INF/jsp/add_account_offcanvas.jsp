@@ -22,7 +22,7 @@
     <div class="offcanvas-body">
         <div class="card">
             <div class="card-body">
-                <form action="" class="add-account-form">
+                <form action="/account/create_account" method="post" class="add-account-form">
                     <div class="form-group mb-3">
                         <label for="">Enter account name</label>
                         <input
