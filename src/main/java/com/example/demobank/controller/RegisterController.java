@@ -44,6 +44,11 @@ public class RegisterController {
     ) throws MessagingException {
         ModelAndView registrationPage = new ModelAndView("register");
 
+        //TODO сделать проверку занятости почты
+
+
+
+
         if(result.hasErrors() && confirm_password.isEmpty()) {
             registrationPage.addObject("confirm_pass", "The confirm field is Required");
             return registrationPage;

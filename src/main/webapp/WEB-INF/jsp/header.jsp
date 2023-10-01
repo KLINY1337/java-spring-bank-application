@@ -12,9 +12,9 @@
 
         <div class="display-name ms-auto">
             <i class="fa fa-circle text-success me-2 text-success"></i>Welcome:
-            <span>John Doe</span>
+            <span>${user.first_name} ${user.last_name}</span>
         </div>
-        <a href="" class="btn btn-sm text-black ms-2"
+        <a href="/logout" class="btn btn-sm text-black ms-2"
         ><i class="fa fa-sign-out-alt"></i>Log out</a
         >
     </div>
