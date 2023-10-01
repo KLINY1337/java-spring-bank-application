@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
+    @Query("select u from User u where u.email = ?1")
+    User findByEmail(String email);
     @Transactional
     @Modifying
     @Query("""
@@ -19,4 +21,13 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     @Query(value = "SELECT token from users where token = :token", nativeQuery = true)
     String checkToken(@Param("token")String token);
+
+    @Query(value = "SELECT email from users where email = :email", nativeQuery = true)
+    String getUserEmail(@Param("email")String email);
+
+    @Query(value = "SELECT password from users where email = :email", nativeQuery = true)
+    String getUserPassword(@Param("email")String email);
+
+    @Query(value = "SELECT verified from users where email = :email", nativeQuery = true)
+    int isVerified(@Param("email")String email);
 }
