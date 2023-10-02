@@ -20,6 +20,16 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     @Query(value = "SELECT sum(balance) from accounts where user_id = :user_id", nativeQuery = true)
     BigDecimal getTotalBalance(@Param("user_id")int user_id);
 
+    @Query(value = "SELECT balance from accounts where user_id = :user_id AND account_id = :account_id", nativeQuery = true)
+    double getAccountBalance(@Param("user_id")int user_id,
+                           @Param("account_id")int account_id);
+
+    @Query(value = "UPDATE accounts set balance = :balance where account_id = :account_id", nativeQuery = true)
+    @Modifying
+    @Transactional
+    void changeAccountBalanceById(@Param("account_id")int account_id,
+                                  @Param("balance")double balance);
+
     @Query(value = "INSERT INTO accounts(account_id, user_id, account_number, account_name, account_type, created_at) VALUES (:account_number, :user_id, :account_number, :account_name, :account_type, now())", nativeQuery = true)
     @Modifying
     @Transactional
