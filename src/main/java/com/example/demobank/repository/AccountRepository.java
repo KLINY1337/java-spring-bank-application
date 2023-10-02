@@ -37,4 +37,6 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
                            @Param("account_number")String account_number,
                            @Param("account_name")String account_name,
                            @Param("account_type")String account_type);
+
+
 }

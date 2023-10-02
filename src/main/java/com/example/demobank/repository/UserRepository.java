@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
+    @Query("select (count(u) > 0) from User u where u.email = ?1")
+    boolean existsByEmail(String email);
     @Query("select u from User u where u.email = ?1")
     User findByEmail(String email);
     @Transactional

@@ -5,9 +5,8 @@
     <div class="container d-flex align-items-center">
         <div class="company-name">Easy Bank</div>
         <nav class="navigation">
-            <li><a href="">Dashboard</a></li>
-            <li><a href="">Payment History</a></li>
-            <li><a href="">Transaction History</a></li>
+            <li><a href="/app/dashboard">Dashboard</a></li>
+            <li><a href="/app/dashboard/history">Transaction History</a></li>
         </nav>
 
         <div class="display-name ms-auto">

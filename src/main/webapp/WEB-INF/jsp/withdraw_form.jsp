@@ -5,7 +5,7 @@
 <!--withdraw card-->
 <div class="card withdraw-card">
     <div class="card-body">
-        <form>
+        <form class="withdraw-form" action="/transact/withdraw" method="post">
         <div class="form-group mb-2">
             <label for="">Enter withdrawal amount</label>
             <input

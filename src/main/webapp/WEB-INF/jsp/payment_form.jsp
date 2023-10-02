@@ -5,30 +5,37 @@
 <!--payment card-->
 <div class="card payment-card">
     <div class="card-body">
+        <form class="payment-form" method="post" action="/transact/payment">
         <div class="form-group mb-2">
-            <label for="">Enter Account holder / Beneficiary</label>
-            <input
-                    type="text"
-                    name="beneficiary"
-                    placeholder="Enter account holder / beneficiary name"
-                    class="form-control"
-            />
+            <label for="">Select FROM account</label>
+            <!-- select account option-->
+            <select name="account_from_id" class="form-control">
+                <option value="">-- Select account --</option>
+                <c:if test="${userAccounts != null}">
+                    <c:forEach items="${userAccounts}" var="selectAccount">
+                        <option value="${selectAccount.account_id}">${selectAccount.account_name}</option>
+                    </c:forEach>
+                </c:if>
+            </select>
         </div>
         <div class="form-group mb-2">
-            <label for="">Enter Account holder / Beneficiary number</label>
+            <label for="">Enter user TO email</label>
             <input
                     type="text"
-                    name="account_number"
+                    name="account_to_email"
                     placeholder="Enter account holder / beneficiary account №"
                     class="form-control"
             />
         </div>
-        <div class="form-group">
-            <label for="">Select account</label>
+        <div class="form-group mb-2">
+            <label for="">Enter account TO number</label>
             <!-- select account option-->
-            <select name="account_id" class="form-control">
-                <option value="">-- Select account --</option>
-            </select>
+            <input
+                    type="text"
+                    name="account_to_number"
+                    placeholder="Enter account holder / beneficiary account №"
+                    class="form-control"
+            />
         </div>
         <div class="form-group mb-2">
             <label for="">Reference</label>
@@ -51,5 +58,6 @@
         <div class="form-group mb-2">
             <button id="transact-btn" class="btn btn-md">Pay</button>
         </div>
+        </form>
     </div>
 </div>
