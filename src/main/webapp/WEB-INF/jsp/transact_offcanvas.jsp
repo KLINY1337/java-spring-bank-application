@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <div
         class="offcanvas offcanvas-start"
         tabindex="-1"
@@ -9,7 +9,7 @@
         aria-labelledby="offcanvasExampleLabel"
 >
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Transact</h5>
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Переводы</h5>
         <button
                 type="button"
                 class="btn-close"
@@ -19,7 +19,7 @@
     </div>
     <div class="offcanvas-body">
         <small class="card-text"
-        >Choose an option below to perform a transactions</small
+        >Тип перевода</small
         >
         <!--transaction type -->
         <select
@@ -27,11 +27,11 @@
                 class="form-control my-3"
                 id="transact-type"
         >
-            <option value="">-- Select transaction type --</option>
-            <option value="payment">Payment</option>
-            <option value="transfer">Transfer</option>
-            <option value="deposit">Deposit</option>
-            <option value="withdraw">Withdraw</option>
+            <option value="">-- Выберите тип перевода --</option>
+            <option value="payment">Другому пользователю</option>
+            <option value="transfer">Между своими счетами</option>
+            <option value="deposit">Ввод средств</option>
+            <option value="withdraw">Вывод средств</option>
         </select>
 
         <c:import url="payment_form.jsp"/>

@@ -50,12 +50,12 @@ public class RegisterController {
 
 
         if(result.hasErrors() && confirm_password.isEmpty()) {
-            registrationPage.addObject("confirm_pass", "The confirm field is Required");
+            registrationPage.addObject("confirm_pass", "Подтвердите введённый пароль");
             return registrationPage;
         }
 
         if (!password.equals(confirm_password)) {
-            registrationPage.addObject("passwordMisMatch", "Password do not match");
+            registrationPage.addObject("passwordMisMatch", "Введённые пароли не совпадают");
             return registrationPage;
         }
 
@@ -79,9 +79,9 @@ public class RegisterController {
                 .build();
         userRepository.save(userToRegister);
 
-        MailMessenger.htmlEmailMessenger("a12344321123@mail.ru", email, "Verify account", emailBody);
+        MailMessenger.htmlEmailMessenger("a12344321123@mail.ru", email, "Подтверждение аккаунта", emailBody);
 
-        String successMessage = "Account registered successfully, please check your email and verify account";
+        String successMessage = "Аккаунт успешно зарегистрирован, проверьте вашу почту и подтвердите его";
         registrationPage.addObject("success", successMessage);
 
         return registrationPage;

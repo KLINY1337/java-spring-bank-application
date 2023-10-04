@@ -29,7 +29,7 @@ public class AccountController {
                                 ) {
 
         if (accountName.isEmpty() || accountType.isEmpty()) {
-            redirectAttributes.addFlashAttribute("error", "Account name and type cannot be empty");
+            redirectAttributes.addFlashAttribute("error", "Заполните все поля");
             return "redirect:/app/dashboard";
         }
 
@@ -39,7 +39,7 @@ public class AccountController {
         String bankAccountNumber = Integer.toString(setAccountNumber);
 
         accountRepository.createBankAccount(user.getUser_id(), bankAccountNumber, accountName, accountType);
-        redirectAttributes.addFlashAttribute("success", "Account created successfully");
+        redirectAttributes.addFlashAttribute("success", "Счёт создан успешно");
         return "redirect:/app/dashboard";
     }
 }

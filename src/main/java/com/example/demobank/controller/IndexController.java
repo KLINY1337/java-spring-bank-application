@@ -40,12 +40,12 @@ public class IndexController {
         String dbToken = userRepository.checkToken(token);
         if (dbToken == null || dbToken.isEmpty()) {
             ModelAndView getErrorPage = new ModelAndView("error");
-            getErrorPage.addObject("PageTitle", "This session is expired");
+            getErrorPage.addObject("PageTitle", "Срок действия сеанса истёк");
             return getErrorPage;
         }
         userRepository.updateVerifiedAndVerified_atAndUpdated_atByTokenAndCode(token, code);
 
-        getVerifyPage.addObject("success", "Account verified successfully, please log in");
+        getVerifyPage.addObject("success", "Аккаунт успешно подтвержден, теперь в него можно войти");
         return getVerifyPage;
     }
 }

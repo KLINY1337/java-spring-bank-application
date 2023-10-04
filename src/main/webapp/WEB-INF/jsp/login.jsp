@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,8 +15,8 @@
 <body class="d-flex align-items-center justify-content-center">
 <div class="card login-form-card col-4 bg-transparent border-0">
     <div class="card-body">
-        <h1 class="form-header card-title mb-3">
-            <i class="fa fa-user-circle"></i> Login
+        <h1 class="form-header card-title mb-3 text-white">
+            <i class="fa fa-user-circle"></i> Вход в личный кабинет
         </h1>
 
         <c:if test="${requestScope.success != null}">
@@ -41,7 +42,7 @@
                             type="email"
                             name="email"
                             class="form-control form-control-lg"
-                            placeholder="Enter email"
+                            placeholder="Электронная почта"
                     />
                 </div>
             </div>
@@ -51,7 +52,7 @@
                             type="password"
                             name="password"
                             class="form-control form-control-lg"
-                            placeholder="Enter password"
+                            placeholder="Пароль"
                     />
                 </div>
                 <div class="form-group col">
@@ -63,22 +64,22 @@
                 </div>
             </div>
             <div class="form-group col">
-                <button class="btn btn-lg">Login</button>
+                <button class="btn btn-lg">Вход</button>
             </div>
         </form>
 
         <p class="card-text text-white my-2">
-            Don't have an account
+            Ещё не зарегистрированы?
             <span class="ms-2 text-warning"
             ><a href="register" class="btn btn-sm text-warning"
-            >Sign up</a
+            >Создать аккаунт</a
             ></span
             >
         </p>
 
         <small class="text-warning">
             <i class="fa fa-arrow-alt-circle-left"
-            ><a href="/" class="btn btn-sm text-warning">Back</a></i
+            ><a href="/" class="btn btn-sm text-warning">Вернуться на главную</a></i
             >
         </small>
     </div>

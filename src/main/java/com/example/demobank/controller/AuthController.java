@@ -40,7 +40,7 @@ public class AuthController {
                         HttpSession session){
 
         if (email.isEmpty() || password.isEmpty()) {
-            model.addAttribute("error", "Login and password must not be empty");
+            model.addAttribute("error", "Все поля должны быть заполнены");
             return "login";
         }
 
@@ -50,19 +50,19 @@ public class AuthController {
             String getPasswordInDatabase = userRepository.getUserPassword(getEmailInDatabase);
 
             if(!BCrypt.checkpw(password, getPasswordInDatabase)){
-                model.addAttribute("error", "Incorrect username or password");
+                model.addAttribute("error", "Неверное имя пользователя или пароль");
                 return "login";
             }
 
         }
         else {
-            model.addAttribute("error", "Something went wrong please contact support");
+            model.addAttribute("error", "Упс, что-то пошло не так.");
             return "error";
         }
 
         int verified = userRepository.isVerified(getEmailInDatabase);
         if (verified != 1) {
-            model.addAttribute("error", "Before logging in, please verify your account via email");
+            model.addAttribute("error", "Перед входом в аккаунт подтвердите его по почте");
             return "login";
         }
 
@@ -80,7 +80,7 @@ public class AuthController {
     public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
         session.invalidate();
 
-        redirectAttributes.addFlashAttribute("logged_out", "Logged out successfully");
+        redirectAttributes.addFlashAttribute("logged_out", "Выход прошёл успешно");
         return "redirect:/login";
     }
 }

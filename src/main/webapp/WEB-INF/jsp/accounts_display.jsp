@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <div class="container d-flex">
     <button
             class="btn bg-white btn-lg"
@@ -10,7 +10,7 @@
             data-bs-target="#offcanvasRight"
             aria-controls="offcanvasRight"
     >
-        <i class="fa fa-credit-card"></i> Add new account
+        <i class="fa fa-credit-card"></i> Открыть счёт
     </button>
     <button
             id="transact-btn"
@@ -20,13 +20,13 @@
             data-bs-target="#offcanvasExample"
             aria-controls="offcanvasExample"
     >
-        <i class="fa fa-wallet"></i> Transact
+        <i class="fa fa-wallet"></i> Переводы
     </button>
 </div>
 
 <!--Total acc balance-->
 <div class="container d-flex text-white py-3">
-    <h2 class="me-auto">Total accounts balance:</h2>
+    <h2 class="me-auto">Общий баланс: </h2>
     <h2 class="ms-auto"><c:if test="${requestScope.totalBalance != null}">
         <c:out value="${totalBalance}"/>
     </c:if></h2>
@@ -56,11 +56,11 @@
                     >
                         <div class="accordion-body">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item d-flex ">Name <span class="ms-auto"> <b>${account.account_name}</b></span></li>
-                                <li class="list-group-item d-flex">Number <span class="ms-auto"> <b>${account.account_number}</b></span></li>
-                                <li class="list-group-item d-flex">Type <span class="ms-auto"> <b>${account.account_type}</b></span></li>
-                                <li class="list-group-item d-flex">Balance <span class="ms-auto"> <b>${account.balance}</b></span></li>
-                                <li class="list-group-item d-flex">Created at <span class="ms-auto"> <b>${account.created_at}</b></span></li>
+                                <li class="list-group-item d-flex ">Имя <span class="ms-auto"> <b>${account.account_name}</b></span></li>
+                                <li class="list-group-item d-flex">Номер <span class="ms-auto"> <b>${account.account_number}</b></span></li>
+                                <li class="list-group-item d-flex">Тип <span class="ms-auto"> <b>${account.account_type}</b></span></li>
+                                <li class="list-group-item d-flex">Баланс <span class="ms-auto"> <b>${account.balance}</b></span></li>
+                                <li class="list-group-item d-flex">Создан <span class="ms-auto"> <b>${account.created_at}</b></span></li>
                             </ul>
                         </div>
                     </div>

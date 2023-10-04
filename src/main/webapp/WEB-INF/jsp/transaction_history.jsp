@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,20 +32,20 @@
     <div class="card payment-history-card mb-2">
         <div class="card-body">
             <h1 class="card-title">
-                <i class="fas fa-building text-black"></i> Payment history
+                <i class="fas fa-building text-black"></i> Переводы другим лицам
             </h1>
             <hr />
             <div class="card-text">
                 <table class="table table-striped table-hover">
                     <thead>
                     <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Sender name</th>
-                        <th scope="col">Receiver email</th>
-                        <th scope="col">Receiver account number</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Reference</th>
-                        <th scope="col">Time</th>
+                        <th scope="col">Номер</th>
+                        <th scope="col">Имя отправителя</th>
+                        <th scope="col">Почта получателя</th>
+                        <th scope="col">Номер счёта получателя</th>
+                        <th scope="col">Сумма перевода</th>
+                        <th scope="col">Комментарий</th>
+                        <th scope="col">Дата совершения</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -69,17 +70,17 @@
     <div class="card payment-history-card mb-2">
         <div class="card-body">
             <h1 class="card-title">
-                <i class="fas fa-piggy-bank text-black"></i> Deposit history
+                <i class="fas fa-piggy-bank text-black"></i> История ввода средств
             </h1>
             <hr />
             <div class="card-text">
                 <table class="table table-striped table-hover">
                     <thead>
                     <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Account name</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Time</th>
+                        <th scope="col">Номер</th>
+                        <th scope="col">Имя счёта</th>
+                        <th scope="col">Сумма ввода</th>
+                        <th scope="col">Дата совершения</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -101,18 +102,18 @@
     <div class="card payment-history-card mb-2">
         <div class="card-body">
             <h1 class="card-title">
-                <i class="fas fa-check text-black"></i> Transfer history
+                <i class="fas fa-check text-black"></i> История переводов между своими счетами
             </h1>
             <hr />
             <div class="card-text">
                 <table class="table table-striped table-hover">
                     <thead>
                     <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Sender account</th>
-                        <th scope="col">Receiver account</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Time</th>
+                        <th scope="col">Номер</th>
+                        <th scope="col">Счёт отправки</th>
+                        <th scope="col">Счёт получения</th>
+                        <th scope="col">Сумма перевода</th>
+                        <th scope="col">Дата совершения</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -135,17 +136,17 @@
     <div class="card payment-history-card mb-2">
         <div class="card-body">
             <h1 class="card-title">
-                <i class="fas fa-download text-black"></i> Withdraw history
+                <i class="fas fa-download text-black"></i> История вывода средств
             </h1>
             <hr />
             <div class="card-text">
                 <table class="table table-striped table-hover">
                     <thead>
                     <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Account name</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Time</th>
+                        <th scope="col">Номер</th>
+                        <th scope="col">Имя счёта</th>
+                        <th scope="col">Сумма</th>
+                        <th scope="col">Дата совершения</th>
                     </tr>
                     </thead>
                     <tbody>

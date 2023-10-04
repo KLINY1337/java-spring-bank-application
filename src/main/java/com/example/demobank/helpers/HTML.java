@@ -6,7 +6,7 @@ public class HTML {
 
         String url = "http://127.0.0.1:8070/verify?token=" + token + "&code=" + code;
 
-        String emailTemplate = "<!DOCTYPE html>\n" +
+        return "<!DOCTYPE html>\n" +
                 "<html lang='en'>\n" +
                 "  <head>\n" +
                 "    <meta charset='UTF-8' />\n" +
@@ -81,11 +81,11 @@ public class HTML {
                 "            \n" +
                 "             \n" +
                 "          </h2>\n" +
-                "          <div class='company-name'>Easy Way Bank </div>\n" +
+                "          <div class='company-name'>Chernomuroff Bank </div>\n" +
                 "          <hr>\n" +
                 "\n" +
                 "          <p class='welcome-text'>\n" +
-                "            Your account has been succesfully registered, please click below to verify your account\n" +
+                "            Your account has been successfully registered, please click below to verify your account\n" +
                 "          </p>\n" +
                 "\n" +
                 "          <br><br>\n" +
@@ -99,6 +99,5 @@ public class HTML {
                 "    </div>\n" +
                 "  </body>\n" +
                 "</html> \n";
-        return emailTemplate;
     }
 }
