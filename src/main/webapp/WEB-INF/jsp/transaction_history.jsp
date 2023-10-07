@@ -29,7 +29,7 @@
 </c:if>
 
 <div class="container">
-    <div class="card payment-history-card mb-2">
+    <div class="card transfer-history-card mb-2">
         <div class="card-body">
             <h1 class="card-title">
                 <i class="fas fa-building text-black"></i> Переводы другим лицам
@@ -67,7 +67,7 @@
             </div>
         </div>
     </div>
-    <div class="card payment-history-card mb-2">
+    <div class="card transfer-history-card mb-2">
         <div class="card-body">
             <h1 class="card-title">
                 <i class="fas fa-piggy-bank text-black"></i> История ввода средств
@@ -99,7 +99,7 @@
             </div>
         </div>
     </div>
-    <div class="card payment-history-card mb-2">
+    <div class="card transfer-history-card mb-2">
         <div class="card-body">
             <h1 class="card-title">
                 <i class="fas fa-check text-black"></i> История переводов между своими счетами
@@ -133,7 +133,7 @@
             </div>
         </div>
     </div>
-    <div class="card payment-history-card mb-2">
+    <div class="card transfer-history-card mb-2">
         <div class="card-body">
             <h1 class="card-title">
                 <i class="fas fa-download text-black"></i> История вывода средств

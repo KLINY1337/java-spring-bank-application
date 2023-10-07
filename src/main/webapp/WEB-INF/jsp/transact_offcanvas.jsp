@@ -28,7 +28,7 @@
                 id="transact-type"
         >
             <option value="">-- Выберите тип перевода --</option>
-            <option value="payment">Другому пользователю</option>
+            <option value="transfer">Другому пользователю</option>
             <option value="transfer">Между своими счетами</option>
             <option value="deposit">Ввод средств</option>
             <option value="withdraw">Вывод средств</option>

@@ -1,10 +1,26 @@
-package com.example.demobank.helpers;
+package com.example.demobank.util.mail_bot;
 
-public class HTML {
+import org.springframework.beans.factory.annotation.Value;
 
-    public static String htmlEmailTemplate(String token, String code) {
+public class VerificationEmail {
 
-        String url = "http://127.0.0.1:8070/verify?token=" + token + "&code=" + code;
+    @Value("${server.address}")
+    private static String BASE_URL;
+
+    @Value("${server.port}")
+    private static String SERVER_PORT;
+
+    @Value("${server.transfer.protocol}")
+    private static String SERVER_TRANSFER_PROTOCOL;
+
+    public static String generateText(String token, String code) {
+
+        String url = SERVER_TRANSFER_PROTOCOL +
+                "://" +
+                BASE_URL +
+                ":" +
+                SERVER_PORT +
+                "/verify?token=" + token + "&code=" + code;
 
         return "<!DOCTYPE html>\n" +
                 "<html lang='en'>\n" +

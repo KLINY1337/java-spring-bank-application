@@ -1,6 +1,6 @@
-package com.example.demobank.config;
+package com.example.demobank.configuration;
 
-import com.example.demobank.interceptor.AppInterceptor;
+import com.example.demobank.security.ApplicationInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @ComponentScan(basePackages = {"com.example.demobank"})
-public class AppConfig extends WebMvcConfigurationSupport {
+public class ApplicationSourcesConfiguration extends WebMvcConfigurationSupport {
 
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -32,7 +32,7 @@ public class AppConfig extends WebMvcConfigurationSupport {
 
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AppInterceptor()).addPathPatterns("/app/*");
-        registry.addInterceptor(new AppInterceptor()).addPathPatterns("/app/dashboard/*");
+        registry.addInterceptor(new ApplicationInterceptor()).addPathPatterns("/app/*");
+        registry.addInterceptor(new ApplicationInterceptor()).addPathPatterns("/app/dashboard/*");
     }
 }

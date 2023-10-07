@@ -1,16 +1,10 @@
-package com.example.demobank.controller;
+package com.example.demobank.service.transaction;
 
 import com.example.demobank.entity.Account;
-import com.example.demobank.entity.transaction.Deposit;
-import com.example.demobank.entity.transaction.Payment;
 import com.example.demobank.entity.User;
 import com.example.demobank.entity.transaction.Transfer;
-import com.example.demobank.entity.transaction.Withdraw;
 import com.example.demobank.repository.*;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
@@ -19,39 +13,23 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
-@RequestMapping("/transact")
-public class TransactController {
-
+@Service
+public class TransactionServiceImpl implements TransactionService{
     private final AccountRepository accountRepository;
-    private final UserRepository userRepository;
-    private final PaymentRepository paymentRepository;
     private final DepositRepository depositRepository;
     private final TransferRepository transferRepository;
     private final WithdrawRepository withdrawRepository;
+    private final UserRepository userRepository;
 
-    public TransactController(AccountRepository accountRepository,
-                              UserRepository userRepository,
-                              PaymentRepository paymentRepository,
-                              DepositRepository depositRepository,
-                              TransferRepository transferRepository,
-                              WithdrawRepository withdrawRepository
-    ) {
-        this.accountRepository = accountRepository;
-        this.userRepository = userRepository;
-        this.paymentRepository = paymentRepository;
+    public TransactionServiceImpl(AccountRepository accountRepository, DepositRepository depositRepository, TransferRepository transferRepository, WithdrawRepository withdrawRepository, UserRepository userRepository) {this.accountRepository = accountRepository;
         this.depositRepository = depositRepository;
         this.transferRepository = transferRepository;
         this.withdrawRepository = withdrawRepository;
+        this.userRepository = userRepository;
     }
 
-    @PostMapping("/deposit")
-    public String deposit(@RequestParam("deposit_amount")String depositAmount,
-                          @RequestParam("account_id")String accountId,
-                          HttpSession session,
-                          RedirectAttributes redirectAttributes
-                          ) {
-
+    @Override
+    public String deposit(String depositAmount, String accountId, HttpSession session, RedirectAttributes redirectAttributes) {
         if (depositAmount.isEmpty() || accountId.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "Все поля должны быть заполнены");
             return "redirect:/app/dashboard";
@@ -69,13 +47,13 @@ public class TransactController {
             return "redirect:/app/dashboard";
         }
 
-        double currentBalance = accountRepository.getAccountBalance(user.getUser_id(), acc_id);
+        double currentBalance = accountRepository.getAccountBalance(user.getId(), acc_id);
         double newBalance = currentBalance + depositAmountValue;
         accountRepository.changeAccountBalanceById(acc_id, newBalance);
 
         Deposit deposit = new Deposit();
         deposit.setAccount_id(acc_id);
-        deposit.setUser_id(user.getUser_id());
+        deposit.setUser_id(user.getId());
         deposit.setAccount_name(accountRepository.findById(acc_id).get().getAccount_name());
         deposit.setAmount(BigDecimal.valueOf(depositAmountValue));
         deposit.setCreated_at(LocalDateTime.now());
@@ -86,13 +64,8 @@ public class TransactController {
         return "redirect:/app/dashboard";
     }
 
-    @PostMapping("/transfer")
-    public String transfer(@RequestParam("account_id_from")String accountIdFrom,
-                           @RequestParam("account_id_to")String accountIdTo,
-                           @RequestParam("transfer_amount") String transferAmount,
-                           HttpSession session,
-                           RedirectAttributes redirectAttributes) {
-
+    @Override
+    public String transfer(String accountIdFrom, String accountIdTo, String transferAmount, HttpSession session, RedirectAttributes redirectAttributes) {
         if (accountIdFrom.isEmpty() || accountIdTo.isEmpty() || transferAmount.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "Все поля должны быть заполнены");
             return "redirect:/app/dashboard";
@@ -110,19 +83,19 @@ public class TransactController {
         }
 
         User user = (User) session.getAttribute("user");
-        if (transferAmountValue > accountRepository.getAccountBalance(user.getUser_id(), Integer.parseInt(accountIdFrom))) {
+        if (transferAmountValue > accountRepository.getAccountBalance(user.getId(), Integer.parseInt(accountIdFrom))) {
             redirectAttributes.addFlashAttribute("error", "Недостаточно средств на аккаунте отправления");
             return "redirect:/app/dashboard";
         }
 
-        double currentFromBalance = accountRepository.getAccountBalance(user.getUser_id(), Integer.parseInt(accountIdFrom));
-        double currentToBalance = accountRepository.getAccountBalance(user.getUser_id(), Integer.parseInt(accountIdTo));
+        double currentFromBalance = accountRepository.getAccountBalance(user.getId(), Integer.parseInt(accountIdFrom));
+        double currentToBalance = accountRepository.getAccountBalance(user.getId(), Integer.parseInt(accountIdTo));
         accountRepository.changeAccountBalanceById(Integer.parseInt(accountIdFrom), currentFromBalance - transferAmountValue);
         accountRepository.changeAccountBalanceById(Integer.parseInt(accountIdTo), currentToBalance + transferAmountValue);
         redirectAttributes.addFlashAttribute("success", "Перевод прошёл успешно");
 
         Transfer transfer = new Transfer();
-        transfer.setUser_id(user.getUser_id());
+        transfer.setUser_id(user.getId());
         transfer.setAccount_from_id(Integer.parseInt(accountIdFrom));
         transfer.setAccount_from_name(accountRepository.findById(Integer.valueOf(accountIdFrom)).get().getAccount_name());
         transfer.setAccount_to_id(Integer.parseInt(accountIdTo));
@@ -135,11 +108,8 @@ public class TransactController {
         return "redirect:/app/dashboard";
     }
 
-    @PostMapping("/withdraw")
-    public String withdraw(@RequestParam("withdrawal_amount")String withdrawalAmount,
-                           @RequestParam("account_id")String accountId,
-                           HttpSession session,
-                           RedirectAttributes redirectAttributes) {
+    @Override
+    public String withdraw(String withdrawalAmount, String accountId, HttpSession session, RedirectAttributes redirectAttributes) {
         if (withdrawalAmount.isEmpty() || accountId.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "Все поля должны быть заполнены");
             return "redirect:/app/dashboard";
@@ -153,7 +123,7 @@ public class TransactController {
             return "redirect:/app/dashboard";
         }
 
-        double currentBalance = accountRepository.getAccountBalance(user.getUser_id(), Integer.parseInt(accountId));
+        double currentBalance = accountRepository.getAccountBalance(user.getId(), Integer.parseInt(accountId));
 
         if (withdrawAmountValue > currentBalance) {
             redirectAttributes.addFlashAttribute("error", "Недостаточно средств для вывода");
@@ -164,7 +134,7 @@ public class TransactController {
         redirectAttributes.addFlashAttribute("success", "Вывод прошёл успешно");
 
         Withdraw withdraw = new Withdraw();
-        withdraw.setUser_id(user.getUser_id());
+        withdraw.setUser_id(user.getId());
         withdraw.setAccount_id(Integer.parseInt(accountId));
         withdraw.setAccount_name(accountRepository.findById(Integer.valueOf(accountId)).get().getAccount_name());
         withdraw.setAmount(BigDecimal.valueOf(withdrawAmountValue));
@@ -174,15 +144,8 @@ public class TransactController {
         return "redirect:/app/dashboard";
     }
 
-    @PostMapping("/payment")
-    public String payment(@RequestParam("account_from_id")String accountFromId,
-                          @RequestParam("account_to_email")String accountToEmail,
-                          @RequestParam("account_to_number")String accountToNumber,
-                          @RequestParam("reference")String reference,
-                          @RequestParam("payment_amount")String paymentAmount,
-                          HttpSession session,
-                          RedirectAttributes redirectAttributes) {
-
+    @Override
+    public String payment(String accountFromId, String accountToEmail, String accountToNumber, String reference, String paymentAmount, HttpSession session, RedirectAttributes redirectAttributes) {
         if (accountFromId.isEmpty() || accountToEmail.isEmpty() || accountToNumber.isEmpty() || paymentAmount.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "Все поля кроме комментария должны быть заполнены");
             return "redirect:/app/dashboard";
@@ -196,7 +159,7 @@ public class TransactController {
         User userFrom = (User) session.getAttribute("user");
         User userTo = userRepository.findByEmail(accountToEmail);
 
-        List<Account> userToAccounts = accountRepository.getUserAccountsById(userTo.getUser_id());
+        List<Account> userToAccounts = accountRepository.getUserAccountsById(userTo.getId());
         Optional<Account> userToAccount = userToAccounts.stream().filter(account -> account.getAccount_number().equals(accountToNumber)).findAny();
 
         if (!userToAccount.isPresent()) {
@@ -205,26 +168,26 @@ public class TransactController {
         }
 
         double paymentAmountValue = Double.parseDouble(paymentAmount);
-        if (paymentAmountValue > accountRepository.getAccountBalance(userFrom.getUser_id(), Integer.parseInt(accountFromId))) {
+        if (paymentAmountValue > accountRepository.getAccountBalance(userFrom.getId(), Integer.parseInt(accountFromId))) {
             redirectAttributes.addFlashAttribute("error", "Недостаточно средств для перевода");
             return "redirect:/app/dashboard";
         }
 
-        Payment payment = new Payment();
-        payment.setUser_from_id(userFrom.getUser_id());
-        payment.setUser_from_name(userFrom.getFirst_name() + " " + userFrom.getLast_name());
-        payment.setUser_from_account_name(accountRepository.findById(Integer.parseInt(accountFromId)).get().getAccount_name());
-        payment.setUser_to_id(userTo.getUser_id());
-        payment.setUser_to_email(accountToEmail);
-        payment.setUser_to_account_id(userToAccount.orElseThrow().getAccount_id());
-        payment.setUser_to_account_number(Integer.parseInt(accountToNumber));
-        payment.setAmount(paymentAmountValue);
-        payment.setReference(reference);
-        payment.setCreated_at(LocalDateTime.now());
+        Transfer transfer = new Transfer();
+        transfer.setUser_from_id(userFrom.getId());
+        transfer.setUser_from_name(userFrom.getFirst_name() + " " + userFrom.getLast_name());
+        transfer.setUser_from_account_name(accountRepository.findById(Integer.parseInt(accountFromId)).get().getAccount_name());
+        transfer.setUser_to_id(userTo.getId());
+        transfer.setUser_to_email(accountToEmail);
+        transfer.setUser_to_account_id(userToAccount.orElseThrow().getAccount_id());
+        transfer.setUser_to_account_number(Integer.parseInt(accountToNumber));
+        transfer.setAmount(paymentAmountValue);
+        transfer.setReference(reference);
+        transfer.setCreated_at(LocalDateTime.now());
 
-        paymentRepository.save(payment);
+        paymentRepository.save(transfer);
 
-        double currentAccountFromBalance = accountRepository.getAccountBalance(userFrom.getUser_id(), Integer.parseInt(accountFromId));
+        double currentAccountFromBalance = accountRepository.getAccountBalance(userFrom.getId(), Integer.parseInt(accountFromId));
         double currentAccountToBalance = userToAccount.get().getBalance().doubleValue();
         accountRepository.changeAccountBalanceById(Integer.parseInt(accountFromId), currentAccountFromBalance - paymentAmountValue);
         accountRepository.changeAccountBalanceById(userToAccount.get().getAccount_id(), currentAccountToBalance + paymentAmountValue);

@@ -1,4 +1,4 @@
-package com.example.demobank.interceptor;
+package com.example.demobank.security;
 
 import com.example.demobank.entity.User;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Component
-public class AppInterceptor implements HandlerInterceptor {
+public class ApplicationInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

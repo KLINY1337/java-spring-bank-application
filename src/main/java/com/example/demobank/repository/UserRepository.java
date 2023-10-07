@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface UserRepository extends CrudRepository<User, Long> {
     @Query("select (count(u) > 0) from User u where u.email = ?1")
     boolean existsByEmail(String email);
     @Query("select u from User u where u.email = ?1")
@@ -17,7 +17,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Transactional
     @Modifying
     @Query("""
-            update User u set u.token = null, u.code = null, u.verified = 1, u.verified_at = NOW(), u.updated_at = NOW(), u.created_at = NOW()
+            update User u set u.token = null, u.code = null, u.isVerified = true , u.verifiedAt = NOW(), u.updatedAt = NOW(), u.createdAt = NOW()
             where u.token = ?1 and u.code = ?2""")
     void updateVerifiedAndVerified_atAndUpdated_atByTokenAndCode(String token, String code);
 

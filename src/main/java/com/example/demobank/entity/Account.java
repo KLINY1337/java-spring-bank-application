@@ -1,37 +1,50 @@
 package com.example.demobank.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.proxy.HibernateProxy;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "accounts")
+@AllArgsConstructor
 public class Account {
 
     @Id
-    private int account_id;
-    private int user_id;
+    private String id;
 
-    private String account_number;
-    private String account_name;
-    private String account_type;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    private String name;
+
+    private AccountType type;
 
     @Column(columnDefinition = "decimal(18,2) default 0.00")
     private BigDecimal balance;
+
     private LocalDateTime created_at;
-    private LocalDateTime updated_at;
 
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        if (thisEffectiveClass != oEffectiveClass) return false;
+        Account account = (Account) o;
+        return getId() != null && Objects.equals(getId(), account.getId());
+    }
 
-
-
-
+    @Override
+    public final int hashCode() {
+        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+    }
 }

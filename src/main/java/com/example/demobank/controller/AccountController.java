@@ -1,8 +1,6 @@
 package com.example.demobank.controller;
 
-import com.example.demobank.entity.User;
-import com.example.demobank.helpers.GenAccountNumber;
-import com.example.demobank.repository.AccountRepository;
+import com.example.demobank.service.account.AccountService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,31 +13,15 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/account")
 public class AccountController {
 
-    private final AccountRepository accountRepository;
+    private final AccountService accountService;
 
-    public AccountController(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
-    }
+    public AccountController(AccountService accountService) {this.accountService = accountService;}
 
     @PostMapping("/create_account")
     public String createAccount(@RequestParam("account_name")String accountName,
                                 @RequestParam("account_type")String accountType,
                                 RedirectAttributes redirectAttributes,
-                                HttpSession session
-                                ) {
-
-        if (accountName.isEmpty() || accountType.isEmpty()) {
-            redirectAttributes.addFlashAttribute("error", "Заполните все поля");
-            return "redirect:/app/dashboard";
-        }
-
-        User user = (User) session.getAttribute("user");
-
-        int setAccountNumber = GenAccountNumber.generateAccountNumber();
-        String bankAccountNumber = Integer.toString(setAccountNumber);
-
-        accountRepository.createBankAccount(user.getUser_id(), bankAccountNumber, accountName, accountType);
-        redirectAttributes.addFlashAttribute("success", "Счёт создан успешно");
-        return "redirect:/app/dashboard";
+                                HttpSession session) {
+        return accountService.createAccount(accountName,accountType,redirectAttributes,session);
     }
 }
