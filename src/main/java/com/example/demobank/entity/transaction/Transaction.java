@@ -15,13 +15,13 @@ import java.util.Objects;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Transfer {
+public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private TransferType transferType;
+    private TransactionType transactionType;
 
     @ManyToOne
     @JoinColumn(name = "account_from_id")
@@ -44,8 +44,8 @@ public class Transfer {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Transfer transfer = (Transfer) o;
-        return getId() != null && Objects.equals(getId(), transfer.getId());
+        Transaction transaction = (Transaction) o;
+        return getId() != null && Objects.equals(getId(), transaction.getId());
     }
 
     @Override

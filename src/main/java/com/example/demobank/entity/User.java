@@ -46,8 +46,6 @@ public class User {
 
     private boolean isVerified;
     private LocalDate verifiedAt;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
     @Override
     public final boolean equals(Object o) {

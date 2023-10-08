@@ -9,20 +9,17 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
+@Transactional(readOnly = true)
 public interface UserRepository extends CrudRepository<User, Long> {
+    boolean existsByToken(String token);
     @Query("select (count(u) > 0) from User u where u.email = ?1")
     boolean existsByEmail(String email);
     @Query("select u from User u where u.email = ?1")
     User findByEmail(String email);
-    @Transactional
-    @Modifying
-    @Query("""
-            update User u set u.token = null, u.code = null, u.isVerified = true , u.verifiedAt = NOW(), u.updatedAt = NOW(), u.createdAt = NOW()
-            where u.token = ?1 and u.code = ?2""")
-    void updateVerifiedAndVerified_atAndUpdated_atByTokenAndCode(String token, String code);
 
     @Query(value = "SELECT token from users where token = :token", nativeQuery = true)
     String checkToken(@Param("token")String token);
+
 
     @Query(value = "SELECT email from users where email = :email", nativeQuery = true)
     String getUserEmail(@Param("email")String email);
@@ -32,4 +29,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     @Query(value = "SELECT verified from users where email = :email", nativeQuery = true)
     int isVerified(@Param("email")String email);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE User u SET u.token = null, u.code = null, u.isVerified = true, u.verifiedAt = NOW() WHERE u.token = :token AND u.code = :code")
+    void updateVerifiedStatusOfUserByTokenAndCode(@Param("token") String token, @Param("code") String code);
 }

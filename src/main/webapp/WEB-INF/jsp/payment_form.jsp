@@ -2,10 +2,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
-<!--transfer card-->
-<div class="card transfer-card">
+<!--transaction card-->
+<div class="card transaction-card">
     <div class="card-body">
-        <form class="transfer-form" method="post" action="/transact/transfer">
+        <form class="transaction-form" method="post" action="/transact/transaction">
         <div class="form-group mb-2">
             <label for="">Счёт для перевода</label>
             <!-- select account option-->

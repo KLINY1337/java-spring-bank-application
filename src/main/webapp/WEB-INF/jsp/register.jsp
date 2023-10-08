@@ -25,6 +25,12 @@
             </div>
         </c:if>
 
+        <c:if test="${requestScope.emailAlreadyOccupied != null}">
+            <div class="alert alert-danger text-center border border-danger">
+                <b>${requestScope.emailAlreadyOccupied}</b>
+            </div>
+        </c:if>
+
         <c:if test="${requestScope.success != null}">
             <div class="alert alert-success text-center border border-success">
                 <b>${requestScope.success}</b>

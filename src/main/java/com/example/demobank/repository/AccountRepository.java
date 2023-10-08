@@ -13,8 +13,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
-public interface AccountRepository extends JpaRepository<Account, Long> {
+public interface AccountRepository extends JpaRepository<Account, String> {
     List<Account> findByUser(User user);
+
+    @Query(value = "SELECT a FROM Account a WHERE a.type = 'SYSTEM_ACCOUNT' AND a.name = 'Deposit account'")
+    Account getDepositAccount();
 
     @Query(value = "SELECT SUM(a.balance) FROM Account a WHERE a.user = :user")
     BigDecimal getTotalAccountsBalanceByUser(@Param("user") User user);

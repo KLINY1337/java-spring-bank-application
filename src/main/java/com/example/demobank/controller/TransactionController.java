@@ -22,7 +22,7 @@ public class TransactionController {
                           @RequestParam("account_id")String accountId,
                           HttpSession session,
                           RedirectAttributes redirectAttributes) {
-        return transactionService.deposit(depositAmount, accountId, session, redirectAttributes);
+        return transactionService.createDeposit(depositAmount, accountId, session, redirectAttributes);
     }
 
     @PostMapping("/transfer")
@@ -31,7 +31,7 @@ public class TransactionController {
                            @RequestParam("transfer_amount") String transferAmount,
                            HttpSession session,
                            RedirectAttributes redirectAttributes) {
-        return transactionService.transfer(accountIdFrom, accountIdTo, transferAmount, session, redirectAttributes);
+        return transactionService.createTransfer(accountIdFrom, accountIdTo, transferAmount, session, redirectAttributes);
     }
 
     @PostMapping("/withdraw")
@@ -39,7 +39,7 @@ public class TransactionController {
                            @RequestParam("account_id")String accountId,
                            HttpSession session,
                            RedirectAttributes redirectAttributes) {
-        return transactionService.withdraw(withdrawalAmount, accountId, session, redirectAttributes);
+        return transactionService.createWithdraw(withdrawalAmount, accountId, session, redirectAttributes);
     }
 
     @PostMapping("/payment")

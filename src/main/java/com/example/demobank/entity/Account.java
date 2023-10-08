@@ -30,7 +30,7 @@ public class Account {
     @Column(columnDefinition = "decimal(18,2) default 0.00")
     private BigDecimal balance;
 
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @Override
     public final boolean equals(Object o) {
